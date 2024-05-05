@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:splash_screen/provider/theme_provider.dart';
 import 'package:splash_screen/router/app_router.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        // 다른 Provider들을 여기에 추가
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -10,7 +22,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp.router(
+      themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      theme: themeProvider.lightTheme,
+      darkTheme: themeProvider.darkTheme,
       routerConfig: router,
     );
   }
