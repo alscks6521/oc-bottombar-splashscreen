@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:splash_screen/provider/theme_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class ChartPage extends StatelessWidget {
   const ChartPage({super.key});
@@ -22,6 +21,12 @@ class ChartPage extends StatelessWidget {
                 fontSize: 50,
                 color: Theme.of(context).textTheme.bodyMedium?.color,
               ),
+            ),
+            MaterialButton(
+              onPressed: () {
+                context.push('/input');
+              },
+              child: const Text('이동'),
             ),
           ],
         ),
